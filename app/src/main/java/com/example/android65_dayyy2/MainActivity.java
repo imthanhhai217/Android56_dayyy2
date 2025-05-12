@@ -1,6 +1,7 @@
 package com.example.android65_dayyy2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -29,6 +30,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Log.d(TAG, "onCreate: ");
         initView();
+
+//        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_NAME, MODE_PRIVATE);
+//        String name = "Hai";
+//        sharedPreferences.edit().putString(Constants.USE_NAME, name).apply();
+//
+//        Intent intent = new Intent();
+//        intent.putExtra("name", name);
+//
+//        Bundle bundle = new Bundle();
+//        bundle.putString("name", name);
+//        intent.putExtras(bundle);
+        initFragments();
+    }
+
+    private void initFragments() {
+        //Add Setting fragment
+        SettingFragment settingFragment = SettingFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.flFirst, settingFragment)
+                .commit();
+
+        //Replace Second fragment
+        SecondFragment secondFragment = SecondFragment.newInstance("","");
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flSecond, secondFragment)
+                .commit();
+
+        getSupportFragmentManager().beginTransaction().remove(secondFragment).commit();
     }
 
     private void initView() {
